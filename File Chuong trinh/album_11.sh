@@ -5,9 +5,8 @@
 # Nhom SV:
 # 1. Nguyen Hoang Duong
 # 2. Nguyen Quang Giang
-# 3. Cong Dieu
+# 3. Nguyen Cong Dieu
 
-#
 # De tai 11: Cap nhat, tim kiem va hien thi thong tin ve ALBUM
 #######################################################################
 
@@ -18,20 +17,20 @@
 # Thu tuc hien menu
 mainMenu() {
 	echo $'\n============ MAIN MENU ================='
-	echo ' a. Them ALBUM'
-	echo ' f. Tim ALBUM'
-	echo ' s. Thong ke ALBUM'
-	echo ' q. Thoat chuong trinh'
+	echo ' 1. Them album'
+	echo ' 2. Tim kiem album'
+	echo ' 3. Thong ke album'
+	echo ' 0. Thoat chuong trinh'
 	echo '============ MAIN MENU ================='
 	printf 'Nhap menu: '; read menu
 	case $menu in
-	'a')
+	'1')
 		addTextAlbum;;
-	'f')
+	'2')
 		findTextAlbumMenu;;
-	's')
+	'3')
 		'Chua lam!!!!!!!!!!';;
-	'q')
+	'0')
 		echo 'Thoat chuong trinh'
 		return 0;;
 	*)
@@ -42,18 +41,18 @@ mainMenu() {
 
 findTextAlbumMenu() {
 	echo $'\n====== TIM KIEM ALBUM ======'
-	echo '1. Tim kiem theo ma ALBUM'
-	echo '2. Tim kiem theo ten ALBUM'
-	#echo '3. Tim kiem theo theo loai album'
-	#echo '4. Tim kiem theo ca si'
-	echo 'q. Quay lai menu chinh'
+	echo '1. Tim kiem theo ma album'
+	echo '2. Tim kiem theo ten album'
+	#echo '3. Tim kiem theo theo loai ALBUM'
+	#echo '4. Tim kiem theo NXB'
+	echo '0. Quay lai menu chinh'
 	printf 'Nhap menu: '; read m
 	case $m in
 		'1')
 			findTextAlbumById;;
 		'2')
 			findTextAlbumByName;;
-		'q')
+		'0')
 			return;;
 		*)
 			echo 'Menu khong hop le.';;
@@ -62,12 +61,13 @@ findTextAlbumMenu() {
 }
 
 manageTextAlbumMenu() {
-	echo $'--- MENU QUAN LY ALBUM ---'
-	echo '1. Xem thong tin ve ALBUM'
-	echo '2. Sua thong tin ve ALBUM'
-	echo '3. Xoa ALBUM'
-	echo '4. Them Bai Hat'
-	echo '0. Quay lai tim kiem ALBUM'
+echo $'\n'
+	echo $'==== MENU QUAN LY ALBUM ===='
+	echo '1. Xem thong tin ve album'
+	echo '2. Sua thong tin album'
+	echo '3. Xoa album'
+	echo '4. Them bai hat'
+	echo '0. Quay lai tim kiem album '
 	printf 'Nhap menu: '; read m
 	case $m in
 		'1')
@@ -85,41 +85,44 @@ manageTextAlbumMenu() {
 		*)
 			echo 'Menu khong hop le';;
 	esac
+	echo $'\n'	
 	manageTextAlbumMenu
+	
 }
 
 # Thu tuc Them ALBUM
 addTextAlbum() {
-	echo '====== THEM ALBUM ======='
-	echo 'Nhap thong tin ALBUM moi:'
-	echo 'Ma ALBUM:'; read Id
-	echo 'Ten ALBUM:'; read Title
-	echo 'The loai ALBUM:'; read Type
-	echo 'Nam xuat ban:'; read Composer
-	checkExistTextAlbumId $Id
+	echo '----- THEM ALBUM -----'
+	echo 'Nhap thong tin album moi:'
+	echo 'Ma album:'; read Id
+	echo 'Ten album:'; read Title
+	echo 'The loai album:'; read Type
+	echo 'Nam XB:'; read Composer
+	checkExistTexAlbumId $Id
 	code=$?
 	if [ $code -eq 1 ]; then
-		echo "Ma ALBUM'$Id' da ton tai!"
+		echo "Ma Album '$Id' da ton tai!"
 		return 1
 	fi
 	echo "$Id">>$_TEXTALBUM
 	echo "$Title">>$_TEXTALBUM
 	echo "$Type">>$_TEXTALBUM
 	echo "$Composer">>$_TEXTALBUM
-	echo 'Them ALBUM thanh cong!'
+	echo 'Them Album thanh cong!'
 	return 0
 }
 
 editTextAlbum() {
-	echo '====== SUA ALBUM ======'
-	echo 'Nhap thong tin moi cho ALBUM:'
+echo $'\n'
+	echo '----- SUA ALBUM ------'
+	echo 'Nhap thong tin moi cho Album:'
 	echo '(Bo trong neu khong muon thay doi)'
-	echo 'Ma ALBUM moi:'; read Id
-	echo 'Ten ALBUM moi:'; read Title
-	echo 'The loai ALBUM moi:'; read Type
+	echo 'Ma Album moi:'; read Id
+	echo 'Ten Album moi:'; read Title
+	echo 'The loai Album moi:'; read Type
 	echo 'Nam XB moi:'; read Composer
 	if [ "$Id" ]; then
-		checkExistTextAlbumId $Id
+		checkExistTexAlbumId $Id
 		code=$?
 		if [ $code -eq 1 ]; then
 			echo "Ma ALBUM '$Id' da ton tai!"
@@ -186,15 +189,16 @@ deleteTextAlbum() {
 }
 
 displayTextAlbumInfo() {
-	echo 'THONG TIN ALBUM:'
+echo $'\n'
+	echo '----Thong tin ALBUM----  '
 	echo "Ma ALBUM: ${_TEXTALBUM_INFO[0]}"
 	echo "Ten ALBUM: ${_TEXTALBUM_INFO[1]}"
 	echo "The loai ALBUM: ${_TEXTALBUM_INFO[2]}"
 	echo "Nam XB: ${_TEXTALBUM_INFO[3]}"
 }
 
-# Ham kiem tra su ton tai cua ma album
-checkExistTextAlbumId() {
+# Ham kiem tra su ton tai cua ma ALBUM
+checkExistTexAlbumId() {
 	local code=0
 	local lineNum=0
 	local mod=0
@@ -209,9 +213,9 @@ checkExistTextAlbumId() {
 }
 
 findTextAlbumById() {
-	local found=1
-	local lineNum=1
-	local mod=1
+	local found=0
+	local lineNum=0
+	local mod=0
 	local b=( '' '' '' '' '' )
 	echo 'Nhap ma ALBUM can tim kiem:'; read Id
 	while read line; do
@@ -231,10 +235,11 @@ findTextAlbumById() {
 		fi
 	done < $_TEXTALBUM
 	if [ $found -eq 1 ]; then
-		# luu thong tin album tim dc
+		# luu thong tin giao trinh tim dc
 		line=$(($lineNum-3))
-		setTextAlbumInfo "${b[1]}" "${b[2]}" "${b[3]}" "${b[0]}" "$line"
-		echo 'Da tim thay ALBUM'
+		setTextbookInfo "${b[1]}" "${b[2]}" "${b[3]}" "${b[0]}" "$line"
+		echo 'Da tim thay ALBUM '
+		echo $'\n'
 		manageTextAlbumMenu
 	else
 		echo "Khong tim thay ALBUM co ma '$Id'"
@@ -242,54 +247,23 @@ findTextAlbumById() {
 	return 0
 }
 
-# tim Album theo ten
-findTextbookByName() {
-#	echo 'Coming soon!';
-	local found=0
-	local lineNum=0
-	local mod=0
-	local b=( '' '' '' '' '' )
-	echo 'Nhap ten ALBUM can tim kiem:'; read Title
-	while read line; do
-		lineNum=$(($lineNum+1))
-		mod=`expr $lineNum % 4`
-		if [ $mod -eq 1 ]; then
-			if [ $line = $Title ]; then
-				found=1
-				_TEXTALBUM_LINE=$lineNum
-				b[1]=$line
-			fi
-		elif [ $found -eq 1 ]; then
-			b[$mod]=$line
-			if [ $mod -eq 0 ]; then
-				break
-			fi
-		fi
-	done < $_TEXTALBUM
-	if [ $found -eq 1 ]; then
-		# luu thong tin album tim dc
-		line=$(($lineNum-3))
-		setTextAlbumInfo "${b[1]}" "${b[2]}" "${b[3]}" "${b[0]}" "$line"
-		echo 'Da tim thay ALBUM'
-		manageTextAlbumMenu
-	else
-		echo "Khong tim thay ALBUM co ma '$Title'"
-	fi
-	return 0
+findTextAlbumByName() {
+	echo 'Coming soon!';
 }
 
-# Thu tuc them Bai Hat cho ALbum
+# Thu tuc them Bai Hai cho ALBUM
 addSong() {
-	echo '======= THEM BAI HAT ======'
+echo $'\n'
+	echo '----- THEM BAI HAT ------'
 	echo 'Nhap thong tin cua bai hat:'
 	echo 'So thu tu bai hat trong ALBUM:'; read PageNo
-	echo ' Ten Ca Si the hien:';read CaSi
+	echo ' Ten ca si';read CaSi
 	echo 'Ten Bai Hat:'; read Title
 	#write
-	echo "${_TEXTALBUM_INFO[0]}">>$_SONG
-	echo "$PageNo">>$_SONG
-	echo "$CaSi">>$_SONG
-	echo "$Title">>$_SONG
+	echo "${_TEXTALBUM_INFO[0]}">>$_CHAPTER
+	echo "$PageNo">>$_CHAPTER
+	echo "CaSi">>$_CHAPTER
+	echo "$Title">>$_CHAPTER
 	echo 'Them BAI HAT thanh cong!'
 	echo 'Ban co muon them BAI HAT khac nua khong? [y/n]'; read c
 	if [ $c = 'y' ]; then
@@ -298,7 +272,7 @@ addSong() {
 	return 0
 }
 
-setTextAlbumInfo() {
+setTextbookInfo() {
 	_TEXTALBUM_INFO[0]="$1" #Id
 	_TEXTALBUM_INFO[1]="$2" #Title
 	_TEXTALBUM_INFO[2]="$3" #Type
@@ -308,18 +282,18 @@ setTextAlbumInfo() {
 
 # Chuong trinh chinh
 clear
-echo 'Nhom sinh vien thuc hien'
+echo 'Nhom SV'
 echo '1. Nguyen Hoang Duong'
 echo '2. Nguyen Quang Giang'
 echo '3. Nguyen Cong Dieu'
-
+echo $'\n'
 echo 'De tai 11: Cap nhat, tim kiem va hien thi thong tin ve ALBUM'
 
 # Bat dau chuong trinh
 _TEXTALBUM='album.txt'
-_SONG='song.txt'
+_CHAPTER='song.txt'
 _TEXTALBUM_INFO=( '' '' '' '' '' ) # id title type composer line
-_SONG_INFO=( '' '' '' '') # textbook pageNo title line
+_CHAPTER_INFO=( '' '' '' '') # textbook pageNo title line
 mainMenu
 
 exit 0
