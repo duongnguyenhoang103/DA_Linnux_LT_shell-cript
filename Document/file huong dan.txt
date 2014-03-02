@@ -1,0 +1,31 @@
+tao file bang lenh: vi <file_name>
+vd: vi abc.sh
+
+viet noi dung vao
+nhanh phim "i" de bat dau viet
+viet xong nhan [esc], roi go ":wq" (tuc write quit"
+
+neu chua cap quyen thuc thi, muon thuc thi phai goi ca chuong trinh chay shell
+vd: sh abc.sh
+hoac: bash abc.sh
+sau khi cap quyen thi chi viec go: ./<file_name>
+(mac dinh laf "bash")
+
+cap quyen thuc thi: chmod +x <file_name>
+vd: chmod +x abc.sh
+
+
+ok, go lenh ./abc.sh la chay chuong trinh
+
+:)
+Happy coding!
+
+B1: tao file (nhieu cach, tuy chon)
+vd: vi <file_name>
+tren Ubuntu thi co the la: gedit <file_name>
+
+B2: viet noi dung code vao
+
+B3: cap quyen thuc thi +x
+
+B4: thuc thi chuong trinh ./<file_name>
