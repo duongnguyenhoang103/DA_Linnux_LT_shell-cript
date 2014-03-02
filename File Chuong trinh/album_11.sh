@@ -260,10 +260,10 @@ echo $'\n'
 	echo ' Ten ca si';read CaSi
 	echo 'Ten Bai Hat:'; read Title
 	#write
-	echo "${_TEXTALBUM_INFO[0]}">>$_CHAPTER
-	echo "$PageNo">>$_CHAPTER
-	echo "CaSi">>$_CHAPTER
-	echo "$Title">>$_CHAPTER
+	echo "${_TEXTALBUM_INFO[0]}">>$_SONG
+	echo "$PageNo">>$_SONG
+	echo "CaSi">>$_SONG
+	echo "$Title">>$_SONG
 	echo 'Them BAI HAT thanh cong!'
 	echo 'Ban co muon them BAI HAT khac nua khong? [y/n]'; read c
 	if [ $c = 'y' ]; then
@@ -291,9 +291,9 @@ echo 'De tai 11: Cap nhat, tim kiem va hien thi thong tin ve ALBUM'
 
 # Bat dau chuong trinh
 _TEXTALBUM='album.txt'
-_CHAPTER='song.txt'
+_SONG='song.txt'
 _TEXTALBUM_INFO=( '' '' '' '' '' ) # id title type composer line
-_CHAPTER_INFO=( '' '' '' '') # textbook pageNo title line
+_SONG_INFO=( '' '' '' '') # textbook pageNo title line
 mainMenu
 
 exit 0
